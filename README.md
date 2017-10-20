@@ -1,6 +1,6 @@
 # wiki-app - Getting to Philosophy
 
-This is full-stack app built using Spring MVC. It takes a Wikipedia URL as input, and displays the total hops and path taken from clicking the first link of each page until you get to the Philosophy article and saves this information in PostgreSQL database.
+This is a full-stack app built using Spring MVC. It takes a Wikipedia URL as input, and displays the total hops and path taken from clicking the first link of each page Philosophy article is reached and saves this information in PostgreSQL database.
 
 Following the chain consists of:
 1. Clicking on the first non-parenthesized, non-italicized link.

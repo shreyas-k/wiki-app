@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Get To Philosophy')">
+</head>
+
+<body onLoad="stopLoader()">
+      <div th:replace="fragments/navbar :: nav"></div>
+      
+      <div class="container">
+         <div class="starter-template">
+            <h1>If you click the first link of nearly any Wikipedia Page, eventually you end up at their “Philosophy” page.</h1>
+            <p class="lead"> However, it includes conditions like link should not be italicizied, parenthesized etc.</p>
+         </div>
+      </div>
+      
+      <div class="jumbotron text-center">
+         <h1>Try it here!</h1>
+         <form class="form-inline" action="#" th:action="@{/wiki/philosophy/route}" method="post" th:object="${article}" onsubmit="startLoader()">
+            <div class="input-group">
+               <input th:field="*{url}" id="input_url" class="form-control" size="25" placeholder="Enter URL" type="text" required="true"></input>
+               <div class="input-group-btn"> <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" onClick="getRandomWikiUrl()">Generate Random Article</button> </div>
+            </div>
+         </form>
+      </div>
+      
+       <div class="alert alert-danger" th:if="${error != null}" id="error-alert">
+      	<strong th:text="${error.message}"></strong> 
+      	<button id="err_btn" type="button" class="close" data-dismiss="alert" aria-label="Close">
+  			<span aria-hidden="true">&times;</span>
+		</button>
+      </div>
+      
+      <div align="center" id="load_spinner" class="loader"></div>
+      
+      <div th:replace="fragments/stepsDisplay :: route_steps"></div>
+   </body>
+</html>

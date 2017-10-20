@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	<head th:include="fragments/header :: head (title='Get To Philosophy')">
+</head>
+	<body>
+		<div th:replace="fragments/navbar :: nav"></div>
+		<div th:replace="fragments/stepsDisplay :: route_steps"></div>
+	</body>
+</html>

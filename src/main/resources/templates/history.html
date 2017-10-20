@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+	<head th:include="fragments/header :: head (title='Get To Philosophy')"></head>
+	<body>
+		<div th:replace="fragments/navbar :: nav"></div>
+		<div class="container">
+    <div th:if="${routers != null and not #lists.isEmpty(routers)}">
+        <h2>History</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Total Hops</th>
+                <th>Modified At</th>
+                <th>View</th>
+            </tr>
+            <tr th:each="router : ${routers}">
+                <td th:text="${router.id}"></td>
+                <td>
+                	<a target="_blank" th:href="${router.sourceArticle.url}" th:text="${router.sourceArticle.name}"></a>
+                </td>
+                <td>
+                	<a target="_blank" th:href="${router.destinationArticle.url}" th:text="${router.destinationArticle.name}"></a>
+                </td>
+                <td th:text="${router.totalHops}"></td>
+                <td>
+                	<p th:text="${#dates.format(router.updatedAt, 'dd-MM-yyyy HH:mm')}"></p>
+                </td>
+                <td><a th:href="${'/wiki/philosophy/route/' + router.id}">View</a> </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+	</body>
+</html>

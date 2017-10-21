@@ -29,7 +29,7 @@ public class WikiRetriever {
 		}
 		final Element textContent = doc.getElementById("mw-content-text");
 
-		final Elements paragraphs = textContent.select("p").select(":not(span[id=coordinates])");
+		final Elements paragraphs = textContent.select("p");
 
 		final PageInfo pageInfo = new PageInfo();
 

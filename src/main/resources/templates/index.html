@@ -20,7 +20,9 @@
             <div class="input-group">
                <input th:field="*{url}" id="input_url" class="form-control" size="25" placeholder="Enter URL" type="text" required="true"></input>
                <div class="input-group-btn"> <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-primary" onClick="getRandomWikiUrl()">Generate Random Article</button> </div>
+               	<a class="btn btn-primary" th:href="${'/wiki/philosophy/random/source'}">Generate Random Article</a>
+               <!--  <button type="button" class="btn btn-primary" onClick="getRandomWikiUrl()">Generate Random Article</button>  -->
+               </div>
             </div>
          </form>
       </div>

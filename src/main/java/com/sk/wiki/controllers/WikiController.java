@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class WikiController {
 	@Value("${philosophy.url}")
 	private String philosophyUrl;
 
+	@Value("${wiki_special_random_url}")
+	private String wikiSpecialRandomUrl;
+
 	@RequestMapping(value = "/route", method = RequestMethod.POST)
 	public String findPathToPhilosophy(final Article article, final Model model) throws IOException {
 		final WikiPhilosophyRouter router = new WikiPhilosophyRouter(article.getUrl(), philosophyUrl);
@@ -51,6 +56,12 @@ public class WikiController {
 		return "displayRoute";
 	}
 
+	@RequestMapping(value = "/random/source", method = RequestMethod.GET)
+	public String getRandomSource(final Model model) throws IOException {
+		model.addAttribute("article", getRandomArticle());
+		return "index";
+	}
+
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleError(final HttpServletRequest req, final Exception ex) {
 		final ModelAndView mav = new ModelAndView();
@@ -63,7 +74,14 @@ public class WikiController {
 	private AppException getAppException(final Exception ex) {
 		final String type = ex.getClass().getSimpleName();
 		final String message = ExceptionUtils.getRootCauseMessage(ex);
-
 		return new AppException(type, message);
+	}
+
+	private Article getRandomArticle() throws IOException {
+		final Connection conn = Jsoup.connect(wikiSpecialRandomUrl);
+		final String rUrl = conn.execute().url().toString();
+		final Article article = new Article();
+		article.setUrl(rUrl);
+		return article;
 	}
 }
